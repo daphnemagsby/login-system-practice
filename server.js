@@ -1,9 +1,14 @@
 const express = require('express');
 const app = express();
 const bcrypt = require('bcrypt');
+const passport = require('passport');
+
+const initializePassport = require('./passport-config');
 
 //save users in a variable instead of database to keep example simple
 const users = [];
+
+initializePassport(passport);
 
 app.set('view-engine', 'ejs');
 app.use(express.urlencoded({extended: false}));
@@ -17,6 +22,7 @@ app.get('/login', (req, res)=>{
 });
 
 app.post('/login', (req, res)=>{
+
 
 });
 
@@ -35,11 +41,11 @@ app.post('/register', async (req, res)=>{
 			password: hashedPassword
 		});
 
-		//redirect to login page if succesful
+		//redirect to login page if succesfull
 		res.redirect('/login');
 	}
 	catch{
-
+		res.redirect('register');
 	}
 });
 
